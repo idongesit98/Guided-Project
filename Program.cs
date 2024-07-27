@@ -17,8 +17,9 @@ string[] studentNames = new string[] {"Sophia","Andrew","Emma","Logan","Becky","
 int[] studentScores = new int[10];
 string currentStudentLetterGrade = "";
 
+
 //Write the Report Header to the console
-Console.WriteLine("Student\t\tGrade\n");
+Console.WriteLine("Student\t\tExam Score\tOverall\t\tGrade\tExtra Credit\n");
 
 foreach (string name in studentNames)
 {
@@ -50,6 +51,7 @@ foreach (string name in studentNames)
 
        // Initialize/reset the sum of scored assignments
        int sumAssignmentScores = 0;
+       int sumExtraCreditScores = 0;
 
        // initialize/reset the calculated average of exam + credit scores
        decimal currentStudentGrade = 0;
@@ -67,11 +69,17 @@ foreach (string name in studentNames)
          sumAssignmentScores += scores;
 
          else
-         // add the extra credit points to the sum - bonus points equal to 10% of an exam score
-         sumAssignmentScores += scores/10;
+         // add the extra credit points to the sum
+         sumExtraCreditScores += scores; //10;
        }
 
-       currentStudentGrade = (decimal)(sumAssignmentScores)/examAssignments;
+       decimal averageExamScore = (decimal) sumAssignmentScores / examAssignments;
+
+       decimal extraCreditPoints = (decimal)(sumExtraCreditScores * 0.1) /examAssignments;
+       currentStudentGrade = averageExamScore + extraCreditPoints;
+
+
+       //currentStudentGrade = (decimal)(sumAssignmentScores)/examAssignments;
        
        // To calculate student grade
        if (currentStudentGrade >= 97)
@@ -106,8 +114,8 @@ foreach (string name in studentNames)
 
        else if(currentStudentGrade >= 60)
        currentStudentLetterGrade = "D-";
-      
-       Console.WriteLine($"{currentStudent}\t\t{currentStudentGrade}\t\t{currentStudentLetterGrade}");
+       
+       Console.WriteLine($"{currentStudent}\t\t{averageExamScore}\t\t{currentStudentGrade}\t\t{currentStudentLetterGrade}\t{averageExamScore} ({extraCreditPoints} pts)");
 }
 
 
